@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Selamat Ulang Tahun, Sayang!</title>
+  <title>Selamat Ulang Tahun, Sayangkuu!</title>
   <style>
     * {
       margin: 0;
@@ -16,14 +16,8 @@
       color: white;
       overflow-x: hidden;
       text-align: center;
-    }
-    .stars {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      background: transparent url('https://media.giphy.com/media/l3vRfNA1p0rvhMSvS/giphy.gif') repeat;
-      z-index: -1;
-      background-size: cover;
+      position: relative;
+      min-height: 100vh;
     }
     .container {
       padding: 30px 20px;
@@ -79,6 +73,34 @@
       animation: fadeIn 1.5s ease;
     }
 
+    /* Bintang jatuh animasi */
+    .stars {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .star {
+      position: absolute;
+      background-color: white;
+      border-radius: 50%;
+      opacity: 0.8;
+      animation: fall 2s infinite linear;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-100px) scale(0.2);
+      }
+      100% {
+        transform: translateY(100vh) scale(1);
+      }
+    }
+
     @keyframes fadeIn {
       from { opacity: 0; }
       to { opacity: 1; }
@@ -103,23 +125,47 @@
       0%, 100% { transform: translateY(0px); }
       50% { transform: translateY(-5px); }
     }
+
   </style>
 </head>
 <body>
   <div class="stars"></div>
   <div class="container">
-    <h1>Selamat Ulang Tahun, Cintaku ✨</h1>
-    <p>Kamu adalah hadiah terbaik dalam hidupku. Semoga kamu selalu bahagia dan sehat 💖</p>
+    <h1>Selamat Ulang Tahun, Sayangkuu Cintakuuu ✨</h1>
+    <p>Semoga tambah panjang umur dan sehat selalu, ga usah insecure dan jadi diri kamu sendiri, pokoknya lebih baik ke depannya 💖</p>
     <img src="https://i.ibb.co/3T1CRmJ/love.jpg" alt="Love Image" />
     <button onclick="showMessage()">Klik aku ya 😘</button>
-    <p id="secret">Aku sayang kamu lebih dari kata-kata yang bisa kuucapkan. Terima kasih udah hadir dalam hidupku. ❤️</p>
+    <p id="secret">Alvie ra tau adusss, huuuuuu ❤️</p>
   </div>
 
   <script>
+    // Fungsi untuk menampilkan pesan rahasia
     function showMessage() {
       const msg = document.getElementById('secret');
       msg.style.display = 'block';
     }
+
+    // Membuat bintang jatuh secara acak
+    const starContainer = document.querySelector('.stars');
+
+    function createStar() {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      const size = Math.random() * 4 + 1; // Ukuran bintang random
+      star.style.width = `${size}px`;
+      star.style.height = `${size}px`;
+      star.style.left = `${Math.random() * 100}vw`;
+      star.style.animationDuration = `${Math.random() * 2 + 3}s`; // Durasi acak
+      starContainer.appendChild(star);
+
+      // Menghapus bintang setelah animasi selesai
+      setTimeout(() => {
+        star.remove();
+      }, (Math.random() * 2 + 3) * 1000);
+    }
+
+    // Membuat bintang setiap 100ms
+    setInterval(createStar, 100);
   </script>
 </body>
 </html>
